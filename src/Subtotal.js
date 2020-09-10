@@ -14,8 +14,6 @@ function Subtotal() {
       return acc + num;
     }, 0);
 
-  console.log(subTotal);
-
   return (
     <div className="subtotal">
       <CurrencyFormat
