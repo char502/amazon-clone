@@ -10,7 +10,7 @@
 
 .header__logo {
   width: 100px;
-  object-fit: contain; /* helps image keep it's aspect ratio */
+  object-fit: contain;
   margin: 0 20px;
   margin-top: 18px;
 }

@@ -10,8 +10,6 @@ function CheckoutProduct({ id, image, title, price, rating }) {
       type: "REMOVE_FROM_BASKET",
       id: id,
     });
-
-    // console.log("removed from basket");
   };
 
   return (

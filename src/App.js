@@ -18,25 +18,20 @@ function App() {
       console.log("THE USER IS >>> ", authUser);
 
       if (authUser) {
-        // the user just logged in / the user was logged in
-
         dispatch({
           type: "SET_USER",
           user: authUser,
         });
       } else {
-        // the uer is logged out
         dispatch({
           type: "SET_USER",
           user: null,
         });
       }
     });
-    // Empty square brackets means this will only run once when the app component loads
   }, []);
 
   return (
-    // BEM
     <Router>
       <div className="app">
         <Switch>

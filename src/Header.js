@@ -36,7 +36,6 @@ function Header() {
       <div className="header__nav">
         <Link to={!user && "/login"} className="header__link">
           {" "}
-          {/* if, no user, only then push to login page  */}
           <div onClick={handleAuthentication} className="header__option">
             <span className="header__optionLineOne">
               {user ? `Hello ${user.email}` : "Hello Guest"}
