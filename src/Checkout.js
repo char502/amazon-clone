@@ -5,7 +5,7 @@ import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
 
 function Checkout() {
-  const [{ basket }] = useStateValue();
+  const [{ basket, user }] = useStateValue();
 
   console.log(basket);
 
@@ -19,6 +19,9 @@ function Checkout() {
         />
 
         <div>
+          <h3>Hello, {user?.email}</h3>
+          {/* Optional chaining so will work even when no email (as asynchronous call)  */}
+
           <h2 className="checkout__title">Your Shopping Basket</h2>
 
           {basket.map((item) => (
