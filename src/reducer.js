@@ -3,8 +3,6 @@ export const initialState = {
   user: null,
 };
 
-// Selector inside of reducers
-// In this case, make sure have selector inside reducer as taking the basket, reducing it down and then have a callable function
 export const getBasketTotal = (basket) =>
   basket?.reduce((amount, item) => item.price + amount, 0);
 
