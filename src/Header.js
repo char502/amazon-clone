@@ -34,7 +34,7 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link to={!user && "/login"}>
+        <Link to={!user && "/login"} className="header__link">
           {" "}
           {/* if, no user, only then push to login page  */}
           <div onClick={handleAuthentication} className="header__option">
