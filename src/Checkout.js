@@ -20,8 +20,8 @@ function Checkout() {
         />
 
         <div>
-          <h3>Hello, {user?.email}</h3>
           {/* Optional chaining so will work even when no email (as asynchronous call)  */}
+          <h3>Hello, {user?.email}</h3>
 
           <h2 className="checkout__title">Your Shopping Basket</h2>
 
