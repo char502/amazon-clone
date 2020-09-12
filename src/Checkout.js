@@ -25,18 +25,18 @@ function Checkout() {
 
           <h2 className="checkout__title">Your Shopping Basket</h2>
 
-          <FlipMove>
-            {basket.map((item, index) => (
-              <CheckoutProduct
-                key={index}
-                id={item.id}
-                title={item.title}
-                image={item.image}
-                price={item.price}
-                rating={item.rating}
-              />
-            ))}
-          </FlipMove>
+          {/* <FlipMove> */}
+          {basket.map((item, index) => (
+            <CheckoutProduct
+              key={index}
+              id={item.id}
+              title={item.title}
+              image={item.image}
+              price={item.price}
+              rating={item.rating}
+            />
+          ))}
+          {/* </FlipMove> */}
         </div>
       </div>
 
