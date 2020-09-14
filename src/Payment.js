@@ -8,9 +8,10 @@ import { useStateValue } from "./StateProvider";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { getBasketTotal } from "./reducer";
 import axios from "./axios";
+import { db } from "./firebase";
 
 const Payment = () => {
-  const [{ basket, user }] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
   const history = useHistory();
 
   const stripe = useStripe();
@@ -20,7 +21,7 @@ const Payment = () => {
   const [processing, setprocessing] = useState("");
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
-  const [clientSecret, setClientSecret] = useState();
+  const [clientSecret, setClientSecret] = useState(true);
 
   useEffect(() => {
     // generate the stripe secret which allow us to charge a customer
@@ -28,14 +29,16 @@ const Payment = () => {
     const getClientSecret = async () => {
       const response = await axios({
         method: "post",
-        // Stripe expects the total in a currencies subunits (When using '£', submit in 'p' etc)
-        url: "/payments/create?total=${getBasketTotal(basket) * 100}",
+        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
       });
+      // Stripe expects the total in a currencies subunits (When using '£', submit in 'p' etc)
       setClientSecret(response.data.clientSecret);
     };
 
     getClientSecret();
   }, [basket]);
+
+  console.log("THE SECRET IS >>>", clientSecret);
 
   const handleSubmit = async (event) => {
     // Fancy stripe stuff
@@ -50,9 +53,24 @@ const Payment = () => {
       })
       .then(({ paymentIntent }) => {
         // paymentIntent = payment confirmation
+
+        db.collection("users")
+          .doc(user?.uid)
+          .collection("orders")
+          .doc(paymentIntent.id)
+          .set({
+            basket: basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
+
         setSucceeded(true);
         setError(null);
         setprocessing(false);
+
+        dispatch({
+          type: "EMPTY_BASKET",
+        });
 
         history.replace("/orders");
       });
